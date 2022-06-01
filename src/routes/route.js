@@ -1,6 +1,7 @@
 const express = require('express');
-const externalModule = require('./logger')
-
+const externalModule = require('../logger/logger')
+const externalModule1=require('../util/helper')
+const externalModule2=require('../validator/formatter')
 const router = express.Router();
 
 router.get('/test-me', function (req, res) {
@@ -8,6 +9,14 @@ router.get('/test-me', function (req, res) {
     console.log('The current batch is '+externalModule.batch)
     externalModule.log()
     res.send('My first ever api!')
+    externalModule.welcome()
+    externalModule1.printdate()
+    externalModule1.printmonth()
+    externalModule1.getbatchinfo()
+    externalModule2.trim()
+    externalModule2.toLowerCase()
+    externalModule2.toUpperCase()
+
 });
 
 router.get('/test-me1', function (req, res) {
