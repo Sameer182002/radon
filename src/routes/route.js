@@ -1,6 +1,7 @@
 const express = require('express');
 const myHelper = require('../util/helper')
 const underscore = require('underscore')
+const lodash=require('lodash')
 
 const router = express.Router();
 
@@ -14,10 +15,22 @@ router.get('/test-me', function (req, res) {
 });
 
 router.get('/hello', function (req, res) {
-   
-    res.send('Hello there!')
+   let arr=lodash.chunk(["January","February","March","April","May","June","July","August","September","October","November","December"],3)
+   console.log(arr)
+   let arr1=lodash.tail([1,3,5,7,9,11,13,15,17,19]);
+   console.log(arr1)
+   let ar1=[1,2,3]
+   let ar2=[2,3,4]
+   let ar3=[3,4,5]
+   let ar4=[4,5,6]
+   let ar5=[5,6,7]
+   let arrayresult=lodash.union(ar1,ar2,ar3,ar4,ar5)
+   console.log(arrayresult)
+   let pair=[["horror","The Shining"],["drama", "Titanic"],["thriller" , "Shutter Island"] ,["fantasy","Pans Labyrinth"]]
+   let pairresultt=lodash.fromPairs(pair)
+   console.log(pairresultt)
+    res.send("hello!")
 });
-
 router.get('/candidates', function(req, res){
     console.log('Query paramters for this request are '+JSON.stringify(req.query))
     let gender = req.query.gender
