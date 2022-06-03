@@ -13,11 +13,65 @@ router.get('/test-me', function (req, res) {
     res.send('My first ever api!')
 });
 
-router.get('/hello', function (req, res) {
-   
-    res.send('Hello there!')
+router.get('/movies', function (req, res) {
+   let movies=["Rang de basanti", "The shining", "Lord of the rings", "Batman begins"]
+    res.send(movies)
 });
+router.get('/movies/:indexNumber', function (req, res) {
+    let movies=["Rang de basanti", "The shining", "Lord of the rings", "Batman begins"]
+    let parm=req.params.indexNumber
+    if (parm<=movies.length){
+        let indexNumber=movies[parm]
+        res.send(indexNumber)
+    }
+    else{
+        res.send("Use Valid Index")
+    }
+ });
+ router.get('/films' ,function(req,res){
+     let aray=[ {
+        "id": 1,
+       "name": "The Shining"
+       }, {
+        "id": 2,
+        "name": "Incendies"
+       }, {
+        "id": 3,
+        "name": "Rang de Basanti"
+       }, {
+        "id": 4,
+        "name": "Finding Nemo"
+       }]
+       res.send(aray)
+    });
 
+
+router.get('/films/:filmId',function(req,res){
+    let aray=[ {
+        "id": 1,
+       "name": "The Shining"
+       }, {
+        "id": 2,
+        "name": "Incendies"
+       }, {
+        "id": 3,
+        "name": "Rang de Basanti"
+       }, {
+        "id": 4,
+        "name": "Finding Nemo"
+       }]
+
+       let ID=req.params.filmId
+       let index=ID-1
+       if (index<=aray.length){
+           res.send(aray[index])
+       }
+       else{
+           res.send("No movie exists with this id")
+       }
+
+       res.send(aray)
+      });
 router.get('/candidates', function(req, res){
     console.log('Query paramters for this request are '+JSON.stringify(req.query))
     let gender = req.query.gender
