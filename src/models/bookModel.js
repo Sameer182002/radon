@@ -1,50 +1,38 @@
-const mongoose = require('mongoose');
+const mongoose=require('mongoose');
+const { required } = require('nodemon/lib/config');
 
-const bookSchema = new mongoose.Schema( {
-    bookName: {
+const  bookSchema =new mongoose.Schema({
+    BookName: {
+        type:String,
+        required:true,
+        unique:true
+    },
+    AuthorName: {
+        type: String,
+        required:true
+    },
+    Category:{
         type:String,
         required:true
-    }, 
-    authorName: {
-        type:String,
-        required:true
-    }, 
-    tags: [String],
-    year:{
+    },
+    Year:{
         type:Number,
+        required:true,
         default:2021
     },
-    
-    isPublished: Boolean,
-    prices: {
-        indianPrice: String,
-        europePrice: String,
+    price:{
+        IndianRupee:String,
+        European:String
     },
-    totalPages:{
-        required:true,
-        type:Number
-
+    TotalPages:{
+        type:Number,
+        required:true
     },
-    // sales: {type: Number, default: 10}
-    stockAvailable:{
+    StockAvailable:{
         type:Boolean,
         default:false
-    }
-}, { timestamps: true });
+    },
+    Tags:[String]
 
-
-module.exports = mongoose.model('Book', bookSchema) //users
-
-//Validation:
-//require:true
-//unique
-// default
-
-//String
-//Number
-//Date
-//Boolean
-// Arrays
-// Object
-// ObjectId
-// Buffer - not cover
+},{timestamps:true});
+module.exports=mongoose.model('Book',bookSchema);  // It creates books named dir. in mongoCompass and it automatically converts into plural form and makes first letter in small alphabet 
