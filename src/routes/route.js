@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
 // const UserModel= require("../models/userModel.js")
-const UserController= require("../controllers/userController")
-const BookController= require("../controllers/bookController");
+const UserController = require("../controllers/userController")
+const BookController = require("../controllers/bookController");
 const bookModel = require('../models/bookModel');
 
 router.get("/test-me", function (req, res) {
@@ -13,13 +13,14 @@ router.get("/test-me", function (req, res) {
 
 // router.get("/getUsersData", UserController.getUsersData)
 
-router.post("/createBook", BookController.createBook  )
+router.post("/createBook", BookController.createBook)
 
 // router.get("/getBooksData", BookController.getBooksData)
-router.get("/booklist", BookController.booklist )
-router.post("/getBooksInYear" ,BookController.getBooksInYear)
-router.get("/getXINRBooks" , BookController.getXINRBooks)
-router.get("/getRandomBooks",BookController.randombooks)
+router.get("/booklist", BookController.booklist)
+router.post("/getBooksInYear", BookController.getBooksInYear)
+router.get("/getXINRBooks", BookController.getXINRBooks)
+router.get("/getRandomBooks", BookController.randombooks)
+router.get("/getParticularBooks", BookController.getParticularBooks)
 
 
 module.exports = router;

@@ -1,34 +1,41 @@
 const { count } = require("console")
 const bookModel = require("../models/bookModel")
-const BookModel= require("../models/bookModel")
+const BookModel = require("../models/bookModel")
 
-const createBook= async function (req, res) {
-    let data= req.body
+const createBook = async function (req, res) {
+    let data = req.body
 
-    let savedData= await BookModel.create(data)
-    res.send({msg: savedData})
+    let savedData = await BookModel.create(data)
+    res.send({ msg: savedData })
 }
-const booklist=async function(req,res){
-    let saveddata= await bookModel.find().select({BookName:1,AuthorName:1,_id:0})
-    res.send({msg:saveddata})
+const booklist = async function (req, res) {
+    let saveddata = await bookModel.find().select({ BookName: 1, AuthorName: 1, _id: 0 })
+    res.send({ msg: saveddata })
 }
-const getBooksInYear= async function(req,res){
-    let data=req.body
-    let savedData=await bookModel.find(data)
-    res.send({msg:savedData})
+const getBooksInYear = async function (req, res) {
+    let data = req.body.year
+    let savedData = await bookModel.find(data)
+    res.send({ msg: savedData })
 }
-let getXINRBooks=async function(req,res){
-    let books=await bookModel.find({"price.IndianRupee":{$in:["100INR","200INR","500INR"]},"StockAvailable":{$eq:true}})
-    res.send({msg:books})
+let getXINRBooks = async function (req, res) {
+    let books = await bookModel.find({ "price.IndianRupee": { $in: ["100INR", "200INR", "500INR"] }, "StockAvailable": { $eq: true } })
+    res.send({ msg: books })
 }
-let randombooks =async function(req,res){
-    let randombooks=await bookModel.find({$or:[{"TotalPages":{$gt:500}},{"StockAvailable":true}]})
-    res.send({msg:randombooks})
+let randombooks = async function (req, res) {
+    let randombooks = await bookModel.find({ $or: [{ "TotalPages": { $gt: 500 } }, { "StockAvailable": true }] })
+    res.send({ msg: randombooks })
 }
-module.exports.randombooks=randombooks
- module.exports.getXINRBooks=getXINRBooks
-module.exports.getBooksInYear=getBooksInYear
-module.exports.booklist=booklist;
+let getParticularBooks = async function (req, res) {
+    let finddata = await bookModel.find(req.body)
+    res.send({ msg: finddata })
+}
+
+
+module.exports.getParticularBooks = getParticularBooks
+module.exports.randombooks = randombooks
+module.exports.getXINRBooks = getXINRBooks
+module.exports.getBooksInYear = getBooksInYear
+module.exports.booklist = booklist;
 
 
 //  const getBooksData= async function (req, res) {
@@ -36,7 +43,7 @@ module.exports.booklist=booklist;
 //     // let allBooks= await BookModel.find( ).count() // COUNT
 
 //     // let allBooks= await BookModel.find( { authorName : "Chetan Bhagat" , isPublished: true  } ) // AND
-    
+
 //     // let allBooks= await BookModel.find( { 
 //     //     $or: [ {authorName : "Chetan Bhagat" } , { isPublished: true } , {  "year": 1991 }]
 //     // } ).select( { bookName: 1, authorName: 1, _id: 0})n // SELECT keys that we want
@@ -56,12 +63,12 @@ module.exports.booklist=booklist;
 //     // let allBooks= await BookModel.find({ sales: { $lt:  50 }  }) 
 //     // let allBooks= await BookModel.find({ sales: { $lte:  50 }  }) 
 //     // let allBooks= await BookModel.find({ sales: { $gte:  50 }  }) 
-    
+
 //     // let allBooks= await BookModel.find({     sales : { $in: [10, 17, 82] }     }).count() 
 //     // sales : { $in: [10, 17, 82] }
-    
+
 //     // let allBooks= await BookModel.find({     sales : { $nin: [ 17, 82, 137] }     }).select({ sales: 1, _id:0})
-    
+
 //     //  let allBooks= await BookModel.find({     $and: [{sales : {$gt: 20}} , [sales:  {$lt: 100}]]    })  //sales is between 20 and 100.... sales > 20 AND sales <100
 //     //  let allBooks= await BookModel.find({     sales : {$gt: 20, $lt: 100}   })  //sales is between 20 and 100.... sales > 20 AND sales <100
 
@@ -69,8 +76,8 @@ module.exports.booklist=booklist;
 //     //  let allBooks= await BookModel.findById("621c60a6b16c9e6bf2736e33") 
 //     //  let allBooks= await BookModel.findOne( {sales: 10}) 
 //     //  let allBooks= await BookModel.find( {sales: 10}) 
-    
-    
+
+
 
 //     // //  update (not covered: - findByIdAndUpdate | updateOne )
 //     // let allBooks= await BookModel.update(   
@@ -85,9 +92,9 @@ module.exports.booklist=booklist;
 //     // let allBooks= await BookModel.find( { bookName:  /^INT/i  }) 
 //     // let allBooks= await BookModel.find( { bookName:  /5$/  }) 
 //     // let allBooks= await BookModel.find( { bookName:  /.*Programming.*/i  }) 
-    
+
 //     // ASYNC AWAIT
-    
+
 //     let a= 2+4
 //     a= a + 10
 //     console.log(a)
@@ -104,5 +111,5 @@ module.exports.booklist=booklist;
 // }
 
 
-module.exports.createBook= createBook
+module.exports.createBook = createBook
 // module.exports.getBooksData= getBooksData //
