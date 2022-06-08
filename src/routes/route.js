@@ -31,12 +31,18 @@ router.get("/booksbyChetan",AuthorbookController.booksbyChetan)
 router.get("/authorOfTwoStates",AuthorbookController.authorOfTwoStates)
 
 router.get("/getbooksbetwwen50-100",async function(req,res){
-    let books =await Bookmodell.find({price : { $gte: 50, $lte: 100}}).select({author_id:1})
+    let books =await Bookmodell.find({price : { $gte: 50, $lte: 100}}).select({author_id:1,_id:0})
+    let arr=[]
+    for(let i=0;i<books.length;i++){
+        let b=await authorsModel.find(books[i]).select({author_name:1,_id:0})
+        arr.push(b)
+    }
+    res.send({msg:arr})
+    })
   
     
     // let authors=await authorsModel.find({"books.author_id"}).select({author_name:1})
-res.send({msg:books})
-})
+
 
 //MOMENT JS
 const moment = require('moment');
