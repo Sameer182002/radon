@@ -58,7 +58,7 @@ router.get("/getbooksbetwwen50-100",async function(req,res){
     let rating= await Bookmodell.find({ratings:{$gt:4}}).select({author_id:1})
     let id = rating.map(function(ele){
         return ele.author_id
-    })
+    })// this shows id
     let name= await authorsModel.find({$and:[{author_id:id},{age:{$gt:50}}]}).select({author_name:1,age:1,_id:0})
     res.send({name})
     } )
