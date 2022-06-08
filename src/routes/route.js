@@ -41,36 +41,38 @@ router.get("/getbooksbetwwen50-100",async function(req,res){
     })
   
     router.get("/olderThan50",async function(req,res){
-    let data= await authorsModel.find({age:{$gt:50}}).select({author_id:1,age:1,_id:0,author_name:1})
-    let rating=await Bookmodell.find({author_id:data[0].author_id}).select({ratings:1})
+    // let data= await authorsModel.find({age:{$gt:50}}).select({author_id:1,age:1,_id:0,author_name:1})
+    // let id=data.map(function(ele){
+    //     return ele.author_id
+    // })
+
+    
+    // let id=data[i].author_id
+
+    // let rating=await Bookmodell.find({author_id:id},{ratings:{$gt:4}}).select({ratings:1})
+     
     // let rating=await Bookmodell.findOne({author_id:data[0].author_id})
     // for(let i=0;i<data.length;i++){
     //     let index=
     // }
-    res.send({rating})
+    let rating= await Bookmodell.find({ratings:{$gt:4}}).select({author_id:1})
+    let id = rating.map(function(ele){
+        return ele.author_id
+    })
+    let name= await authorsModel.find({$and:[{author_id:id},{age:{$gt:50}}]}).select({author_name:1,age:1,_id:0})
+    res.send({name})
     } )
-    // let authors=await authorsModel.find({"books.author_id"}).select({author_name:1})
+   
+router.get('/books-by-authorid/:id',async function(req,res){
+    let param=req.params.id
+    let authorname=await Bookmodell.find({author_id:param}).select({_id:0,name:1})
+    res.send({authorname})
 
+})
 
-//MOMENT JS
 const moment = require('moment');
 const authorsModel = require('../models/authorsModel');
 const Bookmodell = require('../models/Bookmodell');
-// router.get("/dateManipulations", function (req, res) {
-    
-//     // const today = moment();
-//     // let x= today.add(10, "days")
 
-//     // let validOrNot= moment("29-02-1991", "DD-MM-YYYY").isValid()
-//     // console.log(validOrNot)
-    
-//     const dateA = moment('01-01-1900', 'DD-MM-YYYY');
-//     const dateB = moment('01-01-2000', 'DD-MM-YYYY');
-
-//     let x= dateB.diff(dateA, "days")
-//     console.log(x)
-
-//     res.send({ msg: "all good"})
-// })
 
 module.exports = router;
