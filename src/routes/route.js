@@ -40,7 +40,15 @@ router.get("/getbooksbetwwen50-100",async function(req,res){
     res.send({msg:arr})
     })
   
-    
+    router.get("/olderThan50",async function(req,res){
+    let data= await authorsModel.find({age:{$gt:50}}).select({author_id:1,age:1,_id:0,author_name:1})
+    let rating=await Bookmodell.find({author_id:data[0].author_id}).select({ratings:1})
+    // let rating=await Bookmodell.findOne({author_id:data[0].author_id})
+    // for(let i=0;i<data.length;i++){
+    //     let index=
+    // }
+    res.send({rating})
+    } )
     // let authors=await authorsModel.find({"books.author_id"}).select({author_name:1})
 
 
