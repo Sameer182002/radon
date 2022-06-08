@@ -19,8 +19,8 @@ router.get('/movies', function (req, res) {
 });
 router.get('/movies/:indexNumber', function (req, res) {
     let movies=["Rang de basanti", "The shining", "Lord of the rings", "Batman begins"]
-    let parm=req.params.indexNumber
-    if (parm<=movies.length){
+    let parm=req.params.indexNumber///4
+    if (parm<movies.length){
         let indexNumber=movies[parm]
         res.send(indexNumber)
     }
