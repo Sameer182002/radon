@@ -9,7 +9,7 @@ let createAuthorsBooks=async function(req,res){
 
 let booksbyChetan=async function(req,res){
     let data=await authorsModel.find({author_name:"Chetan Bhagat"}).select({author_id:1})
-    let books=await Bookmodell.find({data})
+    let books=await Bookmodell.find({author_id:data[0].author_id})
     res.send(books)
 }
 let authorOfTwoStates=async function(req,res){
