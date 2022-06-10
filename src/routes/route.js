@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const bookModel= require("../models/bookModel")
 const publisherModel=require("../models/publisherModel")
-const AuthorModel= require("../models/authorModel")
+
 
 
 const authorController= require("../controllers/authorController")
