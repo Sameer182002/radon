@@ -19,7 +19,7 @@ router.post("/createPublisher",publisherController.createPublisher)
 router.post("/createBook", bookController.createBook  )
 router.get("/getAllBooksWithAuthorAndPublisher",bookController.getAllBooksWithAuthorAndPublisher)
 
-router.get("/byPenguin",async function(req,res){
+router.put("/byPenguin",async function(req,res){
     let data =await publisherModel.find({$or:[{name:"Penguin"},{name:"HarperCollins"}]}).select({_id:1})
     let updatebooks=await bookModel.updateMany({publisher_id:data},{$set:{"isHardCover": true}},{new:true})
     console.log(data)
@@ -27,12 +27,12 @@ router.get("/byPenguin",async function(req,res){
     res.send({msg:updatebooks})
 })
 
-router.get("/ratinggreater",async function(req,res){
+router.put("/ratinggreater",async function(req,res){
     let data = await authorModel.find({rating:{$gt:3.5}})
     console.log(data)
     let updatedprice= await bookModel.updateMany({author_id:data},{$inc:{price:10}},{new:true})
     console.log(updatedprice)
-    res.send({msg:"hii"})
+    res.send({msg:updatedprice})
 })
 
 
