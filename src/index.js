@@ -20,6 +20,7 @@ app.use (
         console.log("Hi I AM INSIDE MIDDLEWARE")
         let date=moment().format('YYYY-DD-MM h:mm:ss a')
         console.log(date,req.socket.remoteAddress,req.path)
+        console.log(date,req.ip,req.path)
         next()
     
     }      
