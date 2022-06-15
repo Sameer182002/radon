@@ -1,4 +1,5 @@
 const jwt = require("jsonwebtoken");
+const { findOneAndUpdate } = require("../models/userModel");
 const userModel = require("../models/userModel");
 
 //You can name the req, res objects anything.
@@ -36,7 +37,7 @@ const loginUser = async function (req, res) {
     },
     "functionup-radon"
   );
-  res.setHeader("x-auth-token", token);
+  // res.setHeader("x-auth-token", token);
   console.log(token)
   res.send({ status: true, token: token });
 };
@@ -76,6 +77,16 @@ let deleteuser= async function(req,res){
   let idfounded= await userModel.findOneAndUpdate({id:userid},{$set:{isDeleted:true}},{new:true})
   res.send({msg:"Deleted",data:idfounded})
 
+}
+let updatePosts= async function(req,res){
+  let id=req.params.userId
+  let findId= await userModel.findById(id)
+  if (!findId) return res.send({msg:"Id Is Invalid"})
+  let data= req.body.posts
+  
+
+
+  // let updatedata= findOneAndUpdate({_id:id},{$set:{posts:data}})
 }
 module.exports.deleteuser=deleteuser
 module.exports.createUser = createUser;

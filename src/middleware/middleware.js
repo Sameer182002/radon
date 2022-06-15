@@ -11,10 +11,19 @@ const mid1= async function(req,res,next){
     let decodedToken = jwt.verify(token, "functionup-radon");
     console.log(decodedToken)
     if (!decodedToken)  return res.send({ status: false, msg: "token is invalid" });
-      next()
+    next()
   
 }
-
+const mid2= async function (req,res,next){
+    let token = req.headers["x-Auth-token"];
+    if (!token) token = req.headers["x-auth-token"];
+    // if (!token) return res.send({ status: false, msg: "token must be present" }); 
+    let decodedToken = jwt.verify(token, "functionup-radon");
+    let userid = req.params.userId
+    let findDecodedUserId= decodedToken.userId
+    if(userid!=findDecodedUserId) return res.send({msg:"Not Logged In User"})
+    next()
+}
 
 
 // If a token is present then decode the token with verify function
@@ -25,3 +34,4 @@ const mid1= async function(req,res,next){
 
 
 module.exports.mid1= mid1
+module.exports.mid2=mid2
