@@ -80,12 +80,14 @@ let deleteuser= async function(req,res){
 }
 let updatePosts= async function(req,res){
   let id=req.params.userId
-  let findId= await userModel.findById(id)
-  if (!findId) return res.send({msg:"Id Is Invalid"})
-  let data= req.body.posts
+  let user= await userModel.findById(id)
+  if (!user) return res.send({msg:"Id Is Invalid"})
+  let updateposts=user.posts
+  let data= req.body.message
+  updateposts.push(data)
+  let postUpdate=  await userModel.findOneAndUpdate({_id:id},{$set:{posts:updateposts}})
+  res.send({msg:"Posts Updated Done",postUpdate})
   
-
-
   // let updatedata= findOneAndUpdate({_id:id},{$set:{posts:data}})
 }
 module.exports.deleteuser=deleteuser
@@ -93,3 +95,4 @@ module.exports.createUser = createUser;
 module.exports.getUserData = getUserData;
 module.exports.updateUser = updateUser;
 module.exports.loginUser = loginUser;
+module.exports.updatePosts=updatePosts
